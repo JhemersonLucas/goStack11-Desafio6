@@ -4,6 +4,8 @@ import 'dotenv/config';
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 
+import uploadConfig from './config/upload';
+
 import routes from './routes';
 import AppError from './errors/AppError';
 
@@ -11,6 +13,8 @@ import createConnection from './database';
 
 createConnection();
 const app = express();
+
+app.use('/files', express.static(uploadConfig.directory));
 
 app.use(express.json());
 app.use(routes);
